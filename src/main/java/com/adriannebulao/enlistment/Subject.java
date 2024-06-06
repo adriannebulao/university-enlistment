@@ -14,6 +14,7 @@ class Subject {
     private final Collection<Subject> prerequisiteSubjects = new HashSet<>();
     private final boolean isLaboratorySubject;
 
+
     public Subject(String subjectId, int units,
                    Collection<Subject> prerequisiteSubjects, boolean isLaboratorySubject) {
         requireNonNull(subjectId, "subject id must not be null");
@@ -29,6 +30,14 @@ class Subject {
 
         requireNonNull(isLaboratorySubject);
         this.isLaboratorySubject = isLaboratorySubject;
+    }
+
+    double calculateExpense(){
+        double cost = units * 3456.78;
+        if(isLaboratorySubject){cost += 1234.56;}
+        cost += 3456.78;
+        cost = cost * 0.12;
+        return(cost);
     }
 
     @Override

@@ -36,6 +36,14 @@ class Student {
 
     }
 
+    double calculateTotalExpenses() {
+        double totalCost = 0;
+        for (Section section : sections) {
+            totalCost += section.calculateExpense();
+        }
+        return totalCost;
+    }
+
 
     Collection<Section> getSections() {
         return new ArrayList<>(sections);
