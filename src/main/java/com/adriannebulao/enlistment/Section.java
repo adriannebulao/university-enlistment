@@ -52,11 +52,11 @@ class Section {
         enlistmentNumber -= 1;
     }
 
-    double calculateExpense(){
-        return(subject.requestAssessment());
+    double getAmountToPay(){
+        return(subject.getSubjectAmountToPay());
     }
 
-    void checkForConflict(Section other) {
+    void checkForConflictSchedule(Section other) {
         requireNonNull(other);
         if (this.schedule.equals(other.schedule)) {
             throw new ScheduleConflictException("this section " + this + " has schedule conflict with section " + other + " at schedule " + schedule);

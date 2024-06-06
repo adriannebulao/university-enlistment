@@ -26,7 +26,7 @@ class Student {
 
     void enlist(Section newSection) {
         requireNonNull(newSection, "section should not be null");
-        sections.forEach(currSection -> currSection.checkForConflict(newSection));
+        sections.forEach(currSection -> currSection.checkForConflictSchedule(newSection));
         sections.forEach(currSection -> currSection.checkForConflictSubject(newSection));
         newSection.checkSubjectPrerequisites(takenSubjects);
         newSection.addEnlistNumber();
@@ -41,14 +41,13 @@ class Student {
 
     }
 
-    double calculateTotalExpenses() {
+    double requestAssessment() {
         double totalCost = 0;
         for (Section section : sections) {
-            totalCost += section.calculateExpense();
+            totalCost += section.getAmountToPay();
         }
         return new BigDecimal(totalCost).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
-
 
     Collection<Section> getSections() {
         return new ArrayList<>(sections);

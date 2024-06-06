@@ -184,7 +184,7 @@ public class StudentTest {
         double totalCost = sec1_value + sec2_value;
         totalCost = new BigDecimal(totalCost).setScale(2, RoundingMode.HALF_UP).doubleValue();
 
-        assertEquals(totalCost, student.calculateTotalExpenses());
+        assertEquals(totalCost, student.requestAssessment());
     }
 
 }

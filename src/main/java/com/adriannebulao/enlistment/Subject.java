@@ -35,7 +35,7 @@ class Subject {
         this.isLaboratorySubject = isLaboratorySubject;
     }
 
-    double requestAssessment() {
+    double getSubjectAmountToPay() {
         double cost = units * UNIT_COST;
         if (this.isLaboratorySubject) {
             cost += LABORATORY_FEE;
