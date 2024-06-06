@@ -48,7 +48,7 @@ class Section {
     }
 
     double calculateExpense(){
-        return(subject.calculateExpense());
+        return(subject.requestAssessment());
     }
 
     void checkForConflict(Section other) {
