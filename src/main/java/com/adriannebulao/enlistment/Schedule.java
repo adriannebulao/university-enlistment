@@ -31,6 +31,7 @@ class Schedule {
     public String toString() {
         return days + ":" + period;
     }
+
 }
 
 enum Days { MTH, TF, WS }

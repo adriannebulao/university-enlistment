@@ -4,7 +4,7 @@ import static java.util.Objects.*;
 import static org.apache.commons.lang3.Validate.*;
 import static org.apache.commons.lang3.StringUtils.*;
 
-
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
@@ -17,8 +17,8 @@ class Subject {
 
     public Subject(String subjectId, int units,
                    Collection<Subject> prerequisiteSubjects, boolean isLaboratorySubject) {
-        requireNonNull(subjectId);
-        isTrue(isAlphanumeric(subjectId));
+        requireNonNull(subjectId, "subject id must not be null");
+        isTrue(isAlphanumeric(subjectId), "subject id must contain alphanumeric characters only");
         this.subjectId = subjectId;
 
         isTrue(units >= 1 && units <= 5, "subject units must be between 1 and 5 was: " + units);
@@ -30,6 +30,20 @@ class Subject {
 
         requireNonNull(isLaboratorySubject);
         this.isLaboratorySubject = isLaboratorySubject;
+    }
+
+    double calculateExpense(){
+        double miscFees = 3456.78;
+        double addedTax = 0.12;
+        double cost = units * 2345.67;
+        if(isLaboratorySubject){cost += 1234.56;}
+        cost += miscFees;
+        cost = cost * addedTax;
+        return(cost);
+    }
+
+    boolean hasTakenPrerequisiteSubjects(Collection<Subject> takenSubjects) {
+        return takenSubjects.containsAll(prerequisiteSubjects);
     }
 
     @Override

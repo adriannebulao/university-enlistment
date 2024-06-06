@@ -4,6 +4,7 @@ import static java.util.Objects.*;
 import static org.apache.commons.lang3.Validate.*;
 import static org.apache.commons.lang3.StringUtils.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 class Section {
@@ -27,6 +28,14 @@ class Section {
         this.room = room;
     }
 
+    Schedule getSchedule() {
+        return schedule;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
     void addEnlistNumber(){
         if(enlistmentNumber + 1 > room.getRoomCapacity()){
             throw new IllegalArgumentException("exceeding room");
@@ -34,6 +43,13 @@ class Section {
         enlistmentNumber += 1;
     }
 
+    void removeEnlistNumber(){
+        enlistmentNumber -= 1;
+    }
+
+    double calculateExpense(){
+        return(subject.calculateExpense());
+    }
 
     void checkForConflict(Section other) {
         requireNonNull(other);
@@ -45,10 +61,23 @@ class Section {
     void checkRoomConflict(Section other) {
         requireNonNull(other);
         if (this.room.equals(other.room) && this.schedule.equals(other.schedule)) {
-            throw new RoomConflictException("Room conflict: both sections have overlapping schedules in the same room.");
+            throw new RoomConflictException("both sections have overlapping schedules in the same room.");
         }
     }
 
+    void checkForConflictSubject(Section otherSubject){
+        requireNonNull(otherSubject);
+        if(this.subject.equals(otherSubject.subject)){
+            throw new SectionsHaveSameSubjectException("cannot have same subject");
+        }
+    }
+
+    void checkSubjectPrerequisites(Collection<Subject> takenSubjects) {
+        requireNonNull(takenSubjects);
+        if (!subject.hasTakenPrerequisiteSubjects(takenSubjects)) {
+            throw new MissingPrerequisiteSubjectException("not all prerequisite subjects were taken");
+        }
+    }
 
     @Override
     public boolean equals(Object o) {

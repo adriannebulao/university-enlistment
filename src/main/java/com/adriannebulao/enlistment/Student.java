@@ -11,22 +11,42 @@ import java.util.Objects;
 class Student {
     private final int studentNumber;
     private final Collection<Section> sections = new HashSet<>();
+    private final Collection<Subject> takenSubjects = new HashSet<>();
 
-    Student(int studentNumber, Collection<Section> sections) {
+    Student(int studentNumber, Collection<Section> sections, Collection<Subject> takenSubjects) {
         isTrue(studentNumber >= 0, "studentNumber should be non-negative, was: " + studentNumber);
         this.studentNumber = studentNumber;
-        notNull(sections);
+        requireNonNull(sections);
         this.sections.addAll(sections);
         noNullElements(this.sections, "sections contain one or more null elements");
+        this.takenSubjects.addAll(takenSubjects);
     }
 
     void enlist(Section newSection) {
         requireNonNull(newSection, "section should not be null");
         sections.forEach(currSection -> currSection.checkForConflict(newSection));
-        newSection.addEnlistNumber();
+        sections.forEach(currSection -> currSection.checkForConflictSubject(newSection));
+        newSection.checkSubjectPrerequisites(takenSubjects);
         newSection.addEnlistNumber();
         sections.add(newSection);
     }
+
+    void cancelEnlist(Section newSection){
+        requireNonNull(newSection, "section should not be null");
+        isTrue(sections.contains(newSection) , "section does not exist");
+        sections.remove(newSection);
+        newSection.removeEnlistNumber();
+
+    }
+
+    double calculateTotalExpenses() {
+        double totalCost = 0;
+        for (Section section : sections) {
+            totalCost += section.calculateExpense();
+        }
+        return totalCost;
+    }
+
 
     Collection<Section> getSections() {
         return new ArrayList<>(sections);
