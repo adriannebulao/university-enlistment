@@ -9,13 +9,17 @@ import java.util.Objects;
 class Section {
     private final String sectionId;
     private final Schedule schedule;
+    private final Instructor instructor;
 
-    Section(String sectionId, Schedule schedule) {
+    Section(String sectionId, Schedule schedule, Instructor instructor) {
         requireNonNull(sectionId);
         notNull(schedule, "schedule must not be null");
         isTrue(isAlphanumeric(sectionId), "sectionId must be alphanumeric, was: " + sectionId);
+        requireNonNull(instructor, "instructor must not be null");
+
         this.sectionId = sectionId;
         this.schedule = schedule;
+        this.instructor = instructor;
     }
 
     void checkForConflict(Section other) {
@@ -24,6 +28,7 @@ class Section {
             throw new ScheduleConflictException("this section " + this + " has schedule conflict with section " + other + " at schedule " + schedule);
         }
     }
+
 
     @Override
     public boolean equals(Object o) {

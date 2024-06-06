@@ -16,12 +16,15 @@ public class StudentTest {
         return new Student(1, Collections.emptyList());
     }
 
+    static Instructor defaultInstructor() {
+        return new Instructor("1");
+    }
     @Test
     void enlist_2_sections_with_no_conflict() {
         // Given: Student with no sections, 2 sections with no conflict
         Student student = defaultStudent();
-        Section sec1 = new Section("A", MTH_830);
-        Section sec2 = new Section("B", TF_1000);
+        Section sec1 = new Section("A", MTH_830, defaultInstructor());
+        Section sec2 = new Section("B", TF_1000, defaultInstructor());
 
         // When: Student enlists in both sections
         student.enlist(sec1);
@@ -40,8 +43,8 @@ public class StudentTest {
     void enlist_2_sections_with_schedule_conflict() {
         // Given:A Student with no sections and 2 sections with the same schedule
         Student student = defaultStudent();
-        Section sec1 = new Section("A", MTH_830);
-        Section sec2 = new Section("B", MTH_830);
+        Section sec1 = new Section("A", MTH_830, defaultInstructor());
+        Section sec2 = new Section("B", MTH_830, defaultInstructor());
 
         // When: Student enlists in both sections
         student.enlist(sec1);
