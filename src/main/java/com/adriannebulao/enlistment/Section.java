@@ -9,15 +9,17 @@ import java.util.Objects;
 class Section {
     private final String sectionId;
     private final Schedule schedule;
+    private final Subject subject;
     private final Room room;
     private int enlistmentNumber;
 
-    Section(String sectionId, Schedule schedule, Room room) {
+    Section(String sectionId, Schedule schedule, Subject subject, Room room) {
         requireNonNull(sectionId);
         notNull(schedule, "schedule must not be null");
         isTrue(isAlphanumeric(sectionId), "sectionId must be alphanumeric, was: " + sectionId);
         this.sectionId = sectionId;
         this.schedule = schedule;
+        this.subject = subject;
         this.room = room;
     }
 
