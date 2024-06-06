@@ -9,7 +9,7 @@ import static com.adriannebulao.enlistment.Period.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentTest {
-
+    static final Room F101 = new Room("F101", 2);
     static final Schedule MTH_830 = new Schedule(MTH, H0830);
     static final Schedule TF_1000 = new Schedule(TF, H1000);
     static Student defaultStudent() {
@@ -22,8 +22,8 @@ public class StudentTest {
         Student student = defaultStudent();
         Subject subj1 = new Subject("123abc", 5, Collections.emptyList(), false);
         Subject subj2 = new Subject("456def", 3, Collections.emptyList(), true);
-        Section sec1 = new Section("A", MTH_830, subj1);
-        Section sec2 = new Section("B", TF_1000, subj2);
+        Section sec1 = new Section("A", MTH_830, subj1, F101);
+        Section sec2 = new Section("B", TF_1000, subj2, F101);
 
         // When: Student enlists in both sections
         student.enlist(sec1);
@@ -44,8 +44,8 @@ public class StudentTest {
         Student student = defaultStudent();
         Subject subj1 = new Subject("123abc", 5, Collections.emptyList(), false);
         Subject subj2 = new Subject("456def", 3, Collections.emptyList(), true);
-        Section sec1 = new Section("A", MTH_830, subj1);
-        Section sec2 = new Section("B", MTH_830, subj2);
+        Section sec1 = new Section("A", MTH_830, subj1, F101);
+        Section sec2 = new Section("B", MTH_830, subj2, F101);
 
         // When: Student enlists in both sections
         student.enlist(sec1);
