@@ -41,7 +41,7 @@ class Subject {
     }
 
     boolean hasTakenPrerequisiteSubjects(Collection<Subject> takenSubjects) {
-        return prerequisiteSubjects.containsAll(takenSubjects);
+        return takenSubjects.containsAll(prerequisiteSubjects);
     }
 
     @Override
