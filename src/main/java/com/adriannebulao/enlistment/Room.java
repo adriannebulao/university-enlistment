@@ -18,6 +18,10 @@ class Room {
         this.roomCapacity = roomCapacity;
     }
 
+    public int getRoomCapacity() {
+        return roomCapacity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
