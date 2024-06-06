@@ -1,0 +1,51 @@
+package com.adriannebulao.enlistment;
+
+import static java.util.Objects.*;
+import static org.apache.commons.lang3.Validate.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Objects;
+
+class Student {
+    private final int studentNumber;
+    private final Collection<Section> sections = new HashSet<>();
+
+    Student(int studentNumber, Collection<Section> sections) {
+        isTrue(studentNumber >= 0, "studentNumber should be non-negative, was: " + studentNumber);
+        this.studentNumber = studentNumber;
+        notNull(sections);
+        this.sections.addAll(sections);
+        noNullElements(this.sections, "sections contain one or more null elements");
+    }
+
+    void enlist(Section newSection) {
+        requireNonNull(newSection, "section should not be null");
+        sections.forEach(currSection -> currSection.checkForConflict(newSection));
+        sections.add(newSection);
+    }
+
+    Collection<Section> getSections() {
+        return new ArrayList<>(sections);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return studentNumber == student.studentNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(studentNumber);
+    }
+
+    @Override
+    public String toString() {
+        return "Student #: " + studentNumber;
+    }
+
+}
