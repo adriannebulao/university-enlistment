@@ -28,6 +28,15 @@ class Student {
         sections.add(newSection);
     }
 
+    void cancelEnlist(Section newSection){
+        requireNonNull(newSection, "section should not be null");
+        isTrue(!sections.contains(newSection), "section does not exist");
+        sections.remove(newSection);
+        newSection.removeEnlistNumber();
+
+    }
+
+
     Collection<Section> getSections() {
         return new ArrayList<>(sections);
     }

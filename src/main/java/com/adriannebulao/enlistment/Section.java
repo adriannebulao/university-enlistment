@@ -34,6 +34,12 @@ class Section {
         enlistmentNumber += 1;
     }
 
+    void removeEnlistNumber(){
+        enlistmentNumber -= 1;
+    }
+
+
+
 
     void checkForConflict(Section other) {
         requireNonNull(other);
