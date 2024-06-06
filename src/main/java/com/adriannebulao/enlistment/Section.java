@@ -28,6 +28,14 @@ class Section {
         this.room = room;
     }
 
+    Schedule getSchedule() {
+        return schedule;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
     void addEnlistNumber(){
         if(enlistmentNumber + 1 > room.getRoomCapacity()){
             throw new IllegalArgumentException("exceeding room");
