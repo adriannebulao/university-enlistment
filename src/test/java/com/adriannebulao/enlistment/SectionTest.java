@@ -6,32 +6,46 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SectionTest {
 
-    private static final String SECTION_ID = "S101";
-    private static final Schedule SCHEDULE = new Schedule(Days.MTH, Period.H0830);
-    private static final Instructor INSTRUCTOR = new Instructor("I1");
-    private static final Subject SUBJECT = new Subject("Math", 3, Collections.emptySet(), false);
-    private static final Room ROOM = new Room("Room101", 30);
+    static Schedule defaultSchedule() {
+        return new Schedule(Days.MTH, Period.H0830);
+    }
+
+    static Subject defaultSubject() {
+        return new Subject("Math", 3, Collections.emptySet(), false);
+    }
+
+    static Instructor defeaultInstructor() {
+       return new Instructor("I1");
+    }
+
+    static Room defaultRoom() {
+        return new Room("Room101", 30);
+    }
+
+    static Section defaultSection() {
+       return new Section("S101", defaultSchedule(), defaultSubject(), defaultRoom(), defeaultInstructor());
+    }
 
     @Test
     void constructor_valid_arguments() {
-        Section section = new Section(SECTION_ID, SCHEDULE, SUBJECT, ROOM, INSTRUCTOR);
+        Section section = defaultSection();
 
         assertNotNull(section);
-        assertEquals(new Section(SECTION_ID, SCHEDULE, SUBJECT, ROOM, INSTRUCTOR), section);
+        assertEquals(defaultSection(), section);
     }
 
     @Test
     void constructor_invalid_arguments() {
         assertThrows(NullPointerException.class, () -> new Section(null, null, null, null, null));
-        assertThrows(IllegalArgumentException.class, () -> new Section("S-101", SCHEDULE, SUBJECT, ROOM, INSTRUCTOR));
-        assertThrows(NullPointerException.class, () -> new Section(SECTION_ID, null, SUBJECT, ROOM, INSTRUCTOR));
-        assertThrows(NullPointerException.class, () -> new Section(SECTION_ID, SCHEDULE, SUBJECT, ROOM, null));
+        assertThrows(IllegalArgumentException.class, () -> new Section("S-101", defaultSchedule(), defaultSubject(), defaultRoom(), defeaultInstructor()));
+        assertThrows(NullPointerException.class, () -> new Section("S101", null, defaultSubject(), defaultRoom(), defeaultInstructor()));
+        assertThrows(NullPointerException.class, () -> new Section("S102", defaultSchedule(), defaultSubject(), defaultRoom(), null));
     }
 
     @Test
     void section_equals_and_hashCode() {
-        Section section1 = new Section(SECTION_ID, SCHEDULE, SUBJECT, ROOM, INSTRUCTOR);
-        Section section2 = new Section(SECTION_ID, SCHEDULE, SUBJECT, ROOM, INSTRUCTOR);
+        Section section1 = defaultSection();
+        Section section2 = defaultSection();
 
         assertEquals(section1, section2);
         assertEquals(section1.hashCode(), section2.hashCode());
@@ -41,7 +55,7 @@ public class SectionTest {
 
     @Test
     void to_string_test() {
-        Section section = new Section(SECTION_ID, SCHEDULE, SUBJECT, ROOM, INSTRUCTOR);
-        assertEquals(SECTION_ID, section.toString());
+        Section section = new Section("S101", defaultSchedule(), defaultSubject(), defaultRoom(), defeaultInstructor());
+        assertEquals("S101", section.toString());
     }
 }

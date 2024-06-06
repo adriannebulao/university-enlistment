@@ -4,7 +4,6 @@ import static java.util.Objects.*;
 import static org.apache.commons.lang3.Validate.*;
 import static org.apache.commons.lang3.StringUtils.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
@@ -14,6 +13,11 @@ class Subject {
     private final int units;
     private final Collection<Subject> prerequisiteSubjects = new HashSet<>();
     private final boolean isLaboratorySubject;
+
+    private static final double UNIT_COST = 2345.67;
+    private static final double LABORATORY_FEE = 1234.56;
+    private static final double MISC_FEES = 3456.78;
+    private static final double VALUE_ADDED_TAX = 0.12;
 
     public Subject(String subjectId, int units,
                    Collection<Subject> prerequisiteSubjects, boolean isLaboratorySubject) {
@@ -28,19 +32,18 @@ class Subject {
         this.prerequisiteSubjects.addAll(prerequisiteSubjects);
         noNullElements(this.prerequisiteSubjects, "prerequisite subjects contain one or more null elements");
 
-        requireNonNull(isLaboratorySubject);
         this.isLaboratorySubject = isLaboratorySubject;
     }
 
-    double calculateExpense(){
-        double miscFees = 3456.78;
-
-        double cost = this.units * 2345.67;
-        if(this.isLaboratorySubject == true){cost += 1234.56;}
-        cost += miscFees;
-        double addedTax = 0.12 * cost;
+    double getSubjectAmountToPay() {
+        double cost = units * UNIT_COST;
+        if (this.isLaboratorySubject) {
+            cost += LABORATORY_FEE;
+        }
+        cost += MISC_FEES;
+        double addedTax = VALUE_ADDED_TAX * cost;
         cost += addedTax;
-        return(cost);
+        return cost;
     }
 
     boolean hasTakenPrerequisiteSubjects(Collection<Subject> takenSubjects) {

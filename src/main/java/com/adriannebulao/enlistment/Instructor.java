@@ -5,11 +5,14 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 
+import static java.util.Objects.requireNonNull;
+
 class Instructor {
     private final String instructorId;
     private final Collection<Section> sections = new HashSet<>();
 
     Instructor(String instructorId) {
+        requireNonNull(instructorId, "instructor id must not be null");
         this.instructorId = instructorId;
     }
 
