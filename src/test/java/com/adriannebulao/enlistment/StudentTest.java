@@ -32,6 +32,8 @@ public class StudentTest {
         student.enlist(sec1);
         student.enlist(sec2);
 
+        student.cancelEnlist(sec1);
+
         System.out.println(student.calculateTotalExpenses());
 
         // Then: Both sections should be found in the student, and no other sections

@@ -32,7 +32,7 @@ class Student {
 
     void cancelEnlist(Section newSection){
         requireNonNull(newSection, "section should not be null");
-        isTrue(!sections.contains(newSection), "section does not exist");
+        isTrue(sections.contains(newSection) , "section does not exist");
         sections.remove(newSection);
         newSection.removeEnlistNumber();
 

@@ -43,12 +43,12 @@ class Section {
         enlistmentNumber += 1;
     }
 
-    double calculateExpense(){
-        return(subject.calculateExpense());
-    }
-
     void removeEnlistNumber(){
         enlistmentNumber -= 1;
+    }
+
+    double calculateExpense(){
+        return(subject.calculateExpense());
     }
 
     void checkForConflict(Section other) {
