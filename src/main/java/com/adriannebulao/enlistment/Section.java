@@ -4,6 +4,7 @@ import static java.util.Objects.*;
 import static org.apache.commons.lang3.Validate.*;
 import static org.apache.commons.lang3.StringUtils.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 class Section {
@@ -42,9 +43,6 @@ class Section {
         enlistmentNumber -= 1;
     }
 
-
-
-
     void checkForConflict(Section other) {
         requireNonNull(other);
         if (this.schedule.equals(other.schedule)) {
@@ -52,6 +50,12 @@ class Section {
         }
     }
 
+    void checkSubjectPrerequisites(Collection<Subject> takenSubjects) {
+        requireNonNull(takenSubjects);
+        if (!subject.hasTakenPrerequisiteSubjects(takenSubjects)) {
+            throw new MissingPrerequisiteSubjectException("not all prerequisite subjects were taken");
+        }
+    }
 
     @Override
     public boolean equals(Object o) {

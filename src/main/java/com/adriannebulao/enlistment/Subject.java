@@ -4,6 +4,7 @@ import static java.util.Objects.*;
 import static org.apache.commons.lang3.Validate.*;
 import static org.apache.commons.lang3.StringUtils.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
@@ -13,7 +14,6 @@ class Subject {
     private final int units;
     private final Collection<Subject> prerequisiteSubjects = new HashSet<>();
     private final boolean isLaboratorySubject;
-
 
     public Subject(String subjectId, int units,
                    Collection<Subject> prerequisiteSubjects, boolean isLaboratorySubject) {
@@ -38,6 +38,10 @@ class Subject {
         cost += 3456.78;
         cost = cost * 0.12;
         return(cost);
+    }
+
+    boolean hasTakenPrerequisiteSubjects(Collection<Subject> takenSubjects) {
+        return prerequisiteSubjects.containsAll(takenSubjects);
     }
 
     @Override

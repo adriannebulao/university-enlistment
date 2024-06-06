@@ -13,7 +13,7 @@ public class StudentTest {
     static final Schedule MTH_830 = new Schedule(MTH, H0830);
     static final Schedule TF_1000 = new Schedule(TF, H1000);
     static Student defaultStudent() {
-        return new Student(1, Collections.emptyList());
+        return new Student(1, Collections.emptyList(), Collections.emptyList());
     }
 
     static Instructor defaultInstructor() {
