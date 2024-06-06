@@ -2,6 +2,8 @@ package com.adriannebulao.enlistment;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 import static com.adriannebulao.enlistment.Days.*;
@@ -15,11 +17,10 @@ public class StudentTest {
     static Student defaultStudent() {
         return new Student(1, Collections.emptyList(), Collections.emptyList());
     }
-
-
     static Instructor defaultInstructor() {
         return new Instructor("1");
     }
+
     @Test
     void enlist_2_sections_with_no_conflict() {
         // Given: Student with no sections, 2 sections with no conflict
@@ -138,6 +139,34 @@ public class StudentTest {
 
         assertThrows(SectionsHaveSameSubjectException.class, () -> student.enlist(sec2));
 
+    }
+
+    @Test
+    void student_assessment_total_payment(){
+        Subject subj1 = new Subject("123abc", 5, Collections.emptyList(), false);
+        Subject subj2 = new Subject("456def", 3, Collections.emptyList(), true);
+        Section sec1 = new Section("A", MTH_830, subj1, F101, defaultInstructor());
+        Section sec2 = new Section("B", TF_1000, subj2, F101, defaultInstructor());
+
+        Student student = defaultStudent();
+
+        student.enlist(sec1);
+        student.enlist(sec2);
+
+        double sec1_value = (5 * 2345.67) + 3456.78 ;
+        double addedTax1 = 0.12 * sec1_value;
+        sec1_value += addedTax1;
+
+        double sec2_value = (3 * 2345.67) + 3456.78 + 1234.56;
+        double addedTax2 = 0.12 * sec2_value;
+        sec2_value += addedTax2;
+
+        double totalCost = sec1_value + sec2_value;
+        totalCost = new BigDecimal(totalCost).setScale(2, RoundingMode.HALF_UP).doubleValue();
+
+
+
+        assertEquals(totalCost, student.calculateTotalExpenses());
     }
 
 }
