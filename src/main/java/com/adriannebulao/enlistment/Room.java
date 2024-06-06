@@ -18,6 +18,10 @@ class Room {
         this.roomCapacity = roomCapacity;
     }
 
+    public String getRoomName() {
+        return roomName;
+    }
+
     public int getRoomCapacity() {
         return roomCapacity;
     }
