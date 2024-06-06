@@ -58,6 +58,13 @@ class Section {
         }
     }
 
+    void checkRoomConflict(Section other) {
+        requireNonNull(other);
+        if (this.room.equals(other.room) && this.schedule.equals(other.schedule)) {
+            throw new RoomConflictException("both sections have overlapping schedules in the same room.");
+        }
+    }
+
     void checkForConflictSubject(Section otherSubject){
         requireNonNull(otherSubject);
         if(this.subject.equals(otherSubject.subject)){
