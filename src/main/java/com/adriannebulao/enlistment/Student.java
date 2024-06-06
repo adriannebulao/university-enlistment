@@ -11,19 +11,21 @@ import java.util.Objects;
 class Student {
     private final int studentNumber;
     private final Collection<Section> sections = new HashSet<>();
+    private final Collection<Subject> takenSubjects = new HashSet<>();
 
-    Student(int studentNumber, Collection<Section> sections) {
+    Student(int studentNumber, Collection<Section> sections, Collection<Subject> takenSubjects) {
         isTrue(studentNumber >= 0, "studentNumber should be non-negative, was: " + studentNumber);
         this.studentNumber = studentNumber;
-        notNull(sections);
+        requireNonNull(sections);
         this.sections.addAll(sections);
         noNullElements(this.sections, "sections contain one or more null elements");
+        this.takenSubjects.addAll(takenSubjects);
     }
 
     void enlist(Section newSection) {
         requireNonNull(newSection, "section should not be null");
         sections.forEach(currSection -> currSection.checkForConflict(newSection));
-        newSection.addEnlistNumber();
+        newSection.checkSubjectPrerequisites(takenSubjects);
         newSection.addEnlistNumber();
         sections.add(newSection);
     }
