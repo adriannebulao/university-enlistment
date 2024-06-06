@@ -37,17 +37,12 @@ class Section {
     void removeEnlistNumber(){
         enlistmentNumber -= 1;
     }
-
-
-
-
     void checkForConflict(Section other) {
         requireNonNull(other);
         if (this.schedule.equals(other.schedule)) {
             throw new ScheduleConflictException("this section " + this + " has schedule conflict with section " + other + " at schedule " + schedule);
         }
     }
-
 
     @Override
     public boolean equals(Object o) {

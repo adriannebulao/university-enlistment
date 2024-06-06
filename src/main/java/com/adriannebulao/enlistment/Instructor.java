@@ -1,9 +1,12 @@
 package com.adriannebulao.enlistment;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
 
 class Instructor {
     private final String instructorId;
+    private final Collection<Section> sections = new HashSet<>();
 
     Instructor(String instructorId) {
         this.instructorId = instructorId;
