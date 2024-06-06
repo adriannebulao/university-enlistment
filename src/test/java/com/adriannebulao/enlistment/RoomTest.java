@@ -27,12 +27,11 @@ public class RoomTest {
     }
 
     @Test
-    void testRoomConflictWithOverlappingSchedules() {
+    void test_room_conflict_with_overlapping_schedules() {
         Room room = new Room("A102", 30);
-        Schedule schedule = new Schedule(MTH, H0830_H1000);
+        Schedule schedule = new Schedule(MTH, H0830);
         Subject subject = new Subject("Math", 3, new HashSet<>(), false);
         Instructor instructor = new Instructor("Dr. Smith");
-
         Section section1 = new Section("SEC1", schedule, subject, room, instructor);
         Section section2 = new Section("SEC2", schedule, subject, room, instructor);
 
@@ -40,10 +39,10 @@ public class RoomTest {
     }
 
     @Test
-    void testNoRoomConflictWithDifferentSchedules() {
+    void test_no_room_conflict_with_different_schedules() {
         Room room = new Room("A102", 30);
-        Schedule schedule1 = new Schedule(MTH, H0830_H1000);
-        Schedule schedule2 = new Schedule(TF, H1000_H1130);
+        Schedule schedule1 = new Schedule(MTH, H0830);
+        Schedule schedule2 = new Schedule(TF, H1000);
         Subject subject = new Subject("Math", 3, new HashSet<>(), false);
         Instructor instructor = new Instructor("Dr. Smith");
 
@@ -52,4 +51,5 @@ public class RoomTest {
 
         assertDoesNotThrow(() -> section1.checkRoomConflict(section2));
     }
+
 }
