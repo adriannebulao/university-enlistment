@@ -34,11 +34,12 @@ class Subject {
 
     double calculateExpense(){
         double miscFees = 3456.78;
-        double addedTax = 0.12;
-        double cost = units * 2345.67;
-        if(isLaboratorySubject){cost += 1234.56;}
+
+        double cost = this.units * 2345.67;
+        if(this.isLaboratorySubject == true){cost += 1234.56;}
         cost += miscFees;
-        cost = cost * addedTax;
+        double addedTax = 0.12 * cost;
+        cost += addedTax;
         return(cost);
     }
 

@@ -3,6 +3,8 @@ package com.adriannebulao.enlistment;
 import static java.util.Objects.*;
 import static org.apache.commons.lang3.Validate.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -33,7 +35,7 @@ class Student {
 
     void cancelEnlist(Section newSection){
         requireNonNull(newSection, "section should not be null");
-        isTrue(sections.contains(newSection) , "section does not exist");
+        isTrue(sections.contains(newSection) , "section is not enlisted");
         sections.remove(newSection);
         newSection.removeEnlistNumber();
 
@@ -44,7 +46,7 @@ class Student {
         for (Section section : sections) {
             totalCost += section.calculateExpense();
         }
-        return totalCost;
+        return new BigDecimal(totalCost).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
 
