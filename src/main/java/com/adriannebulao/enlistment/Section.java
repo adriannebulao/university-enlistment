@@ -6,7 +6,6 @@ import static org.apache.commons.lang3.StringUtils.*;
 
 import java.util.Objects;
 
-
 class Section {
     private final String sectionId;
     private final Schedule schedule;
