@@ -16,14 +16,17 @@ public class StudentTest {
         return new Student(1, Collections.emptyList());
     }
 
+    static Instructor defaultInstructor() {
+        return new Instructor("1");
+    }
     @Test
     void enlist_2_sections_with_no_conflict() {
         // Given: Student with no sections, 2 sections with no conflict
         Student student = defaultStudent();
         Subject subj1 = new Subject("123abc", 5, Collections.emptyList(), false);
         Subject subj2 = new Subject("456def", 3, Collections.emptyList(), true);
-        Section sec1 = new Section("A", MTH_830, subj1, F101);
-        Section sec2 = new Section("B", TF_1000, subj2, F101);
+        Section sec1 = new Section("A", MTH_830, subj1, F101, defaultInstructor());
+        Section sec2 = new Section("B", TF_1000, subj2, F101, defaultInstructor());
 
         // When: Student enlists in both sections
         student.enlist(sec1);
@@ -44,8 +47,8 @@ public class StudentTest {
         Student student = defaultStudent();
         Subject subj1 = new Subject("123abc", 5, Collections.emptyList(), false);
         Subject subj2 = new Subject("456def", 3, Collections.emptyList(), true);
-        Section sec1 = new Section("A", MTH_830, subj1, F101);
-        Section sec2 = new Section("B", MTH_830, subj2, F101);
+        Section sec1 = new Section("A", MTH_830, subj1, F101, defaultInstructor());
+        Section sec2 = new Section("B", MTH_830, subj2, F101, defaultInstructor());
 
         // When: Student enlists in both sections
         student.enlist(sec1);

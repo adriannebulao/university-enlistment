@@ -14,14 +14,6 @@ class Schedule {
         this.period = period;
     }
 
-    public Days getDays() {
-        return days;
-    }
-
-    public Period getPeriod() {
-        return period;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
