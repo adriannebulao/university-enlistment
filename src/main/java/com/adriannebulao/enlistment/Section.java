@@ -9,14 +9,25 @@ import java.util.Objects;
 class Section {
     private final String sectionId;
     private final Schedule schedule;
+    private final Room room;
+    private int enlistmentNumber;
 
-    Section(String sectionId, Schedule schedule) {
+    Section(String sectionId, Schedule schedule, Room room) {
         requireNonNull(sectionId);
         notNull(schedule, "schedule must not be null");
         isTrue(isAlphanumeric(sectionId), "sectionId must be alphanumeric, was: " + sectionId);
         this.sectionId = sectionId;
         this.schedule = schedule;
+        this.room = room;
     }
+
+    void addEnlistNumber(){
+        if(enlistmentNumber + 1 > room.getRoomCapacity()){
+            throw new IllegalArgumentException("exceeding room");
+        }
+        enlistmentNumber += 1;
+    }
+
 
     void checkForConflict(Section other) {
         requireNonNull(other);
