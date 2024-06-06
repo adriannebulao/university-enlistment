@@ -11,9 +11,11 @@ import static com.adriannebulao.enlistment.Period.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentTest {
-    static final Room F101 = new Room("F101", 2);
-    static final Schedule MTH_830 = new Schedule(MTH, H0830);
-    static final Schedule TF_1000 = new Schedule(TF, H1000);
+
+    public static final double UNIT_COST = 2345.67;
+    public static final double MISC_FEES = 3456.78;
+    public static final double LABORATORY_FEE = 1234.56;
+    public static final double VALUE_ADDED_TAX = 0.12;
 
     static Student defaultStudent() {
         return new Student(1, Collections.emptyList(), Collections.emptyList());
@@ -27,12 +29,24 @@ public class StudentTest {
         return new Subject("456def", 3, Collections.emptyList(), true);
     }
 
+    static Room defaultRoom() {
+        return new Room("F101", 2);
+    }
+
+     static Schedule defaultSchedule1() {
+        return new Schedule(MTH, H0830);
+    }
+
+    static Schedule defaultSchedule2() {
+        return new Schedule(TF, H1000);
+    }
+
     static Section defaultSection1() {
-        return new Section("A", MTH_830, defaultSubject1(), F101, defaultInstructor());
+        return new Section("A", defaultSchedule1(), defaultSubject1(), defaultRoom(), defaultInstructor());
     }
 
     static Section defaultSection2() {
-        return new Section("B", TF_1000, defaultSubject2(), F101, defaultInstructor());
+        return new Section("B", defaultSchedule2(), defaultSubject2(), defaultRoom(), defaultInstructor());
     }
 
     static Instructor defaultInstructor() {
@@ -65,7 +79,7 @@ public class StudentTest {
         Student student = defaultStudent();
         Subject subj2 = defaultSubject2();
         Section sec1 = defaultSection1();
-        Section sec2 = new Section("B", MTH_830, subj2, F101, defaultInstructor());
+        Section sec2 = new Section("B", defaultSchedule1(), subj2, defaultRoom(), defaultInstructor());
 
         // When: Student enlists in both sections
         student.enlist(sec1);
@@ -90,7 +104,7 @@ public class StudentTest {
         takenSubjects.add(subj2);
 
         Student student = new Student(1, Collections.emptyList(), takenSubjects);
-        Section newSection = new Section("A", MTH_830, subj3, F101, defaultInstructor());
+        Section newSection = new Section("A", defaultSchedule1(), subj3, defaultRoom(), defaultInstructor());
 
         student.enlist(newSection);
         Collection<Section> enlistedSections = student.getSections();
@@ -113,7 +127,7 @@ public class StudentTest {
         takenSubjects.add(subj1);
 
         Student student = new Student(1, Collections.emptyList(), takenSubjects);
-        Section section = new Section("A", MTH_830, subj3, F101, defaultInstructor());
+        Section section = new Section("A", defaultSchedule1(), subj3, defaultRoom(), defaultInstructor());
 
         assertThrows(MissingPrerequisiteSubjectException.class, ()-> student.enlist(section));
     }
@@ -141,7 +155,7 @@ public class StudentTest {
     void enlist_section_have_same_subject(){
         Subject subj1 = defaultSubject1();
         Section sec1 = defaultSection1();
-        Section sec2 = new Section("B", TF_1000, subj1, F101, defaultInstructor());
+        Section sec2 = new Section("B", defaultSchedule2(), subj1, defaultRoom(), defaultInstructor());
 
         Student student = defaultStudent();
         student.enlist(sec1);
@@ -151,22 +165,20 @@ public class StudentTest {
 
     @Test
     void student_assessment_total_payment(){
-        Subject subj1 = new Subject("123abc", 5, Collections.emptyList(), false);
-        Subject subj2 = new Subject("456def", 3, Collections.emptyList(), true);
-        Section sec1 = new Section("A", MTH_830, subj1, F101, defaultInstructor());
-        Section sec2 = new Section("B", TF_1000, subj2, F101, defaultInstructor());
+        Section sec1 = defaultSection1();
+        Section sec2 = defaultSection2();
 
         Student student = defaultStudent();
 
         student.enlist(sec1);
         student.enlist(sec2);
 
-        double sec1_value = (5 * 2345.67) + 3456.78 ;
-        double addedTax1 = 0.12 * sec1_value;
+        double sec1_value = (5 * UNIT_COST) + MISC_FEES;
+        double addedTax1 = VALUE_ADDED_TAX * sec1_value;
         sec1_value += addedTax1;
 
-        double sec2_value = (3 * 2345.67) + 3456.78 + 1234.56;
-        double addedTax2 = 0.12 * sec2_value;
+        double sec2_value = (3 * UNIT_COST) + MISC_FEES + LABORATORY_FEE;
+        double addedTax2 = VALUE_ADDED_TAX * sec2_value;
         sec2_value += addedTax2;
 
         double totalCost = sec1_value + sec2_value;
