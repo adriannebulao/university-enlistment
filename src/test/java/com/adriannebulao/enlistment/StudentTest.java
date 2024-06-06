@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentTest {
     static final Room F101 = new Room("F101", 2);
-    static final Schedule MTH_830 = new Schedule(MTH, H0830_H1000);
-    static final Schedule TF_1000 = new Schedule(TF, H1000_H1130);
+    static final Schedule MTH_830 = new Schedule(MTH, H0830);
+    static final Schedule TF_1000 = new Schedule(TF, H1000);
     static Student defaultStudent() {
         return new Student(1, Collections.emptyList());
     }

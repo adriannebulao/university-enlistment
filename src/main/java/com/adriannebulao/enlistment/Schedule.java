@@ -36,5 +36,5 @@ class Schedule {
 enum Days { MTH, TF, WS }
 
 enum Period {
-    H0830_H1000, H1000_H1130, H1130_H1300, H1300_H1430, H1430_H1600;
+    H0830, H1000, H1130, H1420, H1600
 }
