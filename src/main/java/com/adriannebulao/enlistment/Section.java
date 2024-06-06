@@ -42,6 +42,13 @@ class Section {
         }
     }
 
+    void checkRoomConflict(Section other) {
+        requireNonNull(other);
+        if (this.room.equals(other.room) && this.schedule.equals(other.schedule)) {
+            throw new RoomConflictException("Room conflict: both sections have overlapping schedules in the same room.");
+        }
+    }
+
 
     @Override
     public boolean equals(Object o) {

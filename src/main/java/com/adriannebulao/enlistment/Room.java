@@ -6,6 +6,7 @@ import static org.apache.commons.lang3.Validate.*;
 import static org.apache.commons.lang3.StringUtils.*;
 
 
+
 class Room {
     private final String roomName;
     private final int roomCapacity;
