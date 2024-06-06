@@ -16,6 +16,7 @@ public class StudentTest {
         return new Student(1, Collections.emptyList(), Collections.emptyList());
     }
 
+
     static Instructor defaultInstructor() {
         return new Instructor("1");
     }
@@ -31,8 +32,6 @@ public class StudentTest {
         // When: Student enlists in both sections
         student.enlist(sec1);
         student.enlist(sec2);
-
-        student.cancelEnlist(sec1);
 
         System.out.println(student.calculateTotalExpenses());
 
@@ -63,6 +62,7 @@ public class StudentTest {
 
     @Test
     void enlist_meet_prerequisite_subjects() {
+
         Subject subj1 = new Subject("123abc", 5, Collections.emptyList(), false);
         Subject subj2 = new Subject("456def", 3, Collections.emptyList(), true);
 
@@ -104,4 +104,40 @@ public class StudentTest {
 
         assertThrows(MissingPrerequisiteSubjectException.class, ()-> student.enlist(section));
     }
+
+    @Test
+    void enlist_cancel_one_section(){
+        Subject subj1 = new Subject("123abc", 5, Collections.emptyList(), false);
+        Subject subj2 = new Subject("456def", 3, Collections.emptyList(), true);
+        Section sec1 = new Section("A", MTH_830, subj1, F101, defaultInstructor());
+        Section sec2 = new Section("B", TF_1000, subj2, F101, defaultInstructor());
+
+        Student student = defaultStudent();
+
+        student.enlist(sec1);
+        student.enlist(sec2);
+
+        student.cancelEnlist(sec1);
+
+        Collection<Section> sections = student.getSections();
+        assertAll(
+                () -> assertTrue(sections.contains(sec2)),
+                () -> assertEquals(1, sections.size())
+        );
+
+    }
+
+    @Test
+    void enlist_section_have_same_subject(){
+        Subject subj1 = new Subject("123abc", 5, Collections.emptyList(), false);
+        Section sec1 = new Section("A", MTH_830, subj1, F101, defaultInstructor());
+        Section sec2 = new Section("B", TF_1000, subj1, F101, defaultInstructor());
+
+        Student student = defaultStudent();
+        student.enlist(sec1);
+
+        assertThrows(SectionsHaveSameSubjectException.class, () -> student.enlist(sec2));
+
+    }
+
 }

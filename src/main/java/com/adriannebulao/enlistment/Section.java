@@ -58,6 +58,13 @@ class Section {
         }
     }
 
+    void checkForConflictSubject(Section otherSubject){
+        requireNonNull(otherSubject);
+        if(this.subject.equals(otherSubject.subject)){
+            throw new SectionsHaveSameSubjectException("cannot have same subject");
+        }
+    }
+
     void checkSubjectPrerequisites(Collection<Subject> takenSubjects) {
         requireNonNull(takenSubjects);
         if (!subject.hasTakenPrerequisiteSubjects(takenSubjects)) {

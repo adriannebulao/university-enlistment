@@ -25,6 +25,7 @@ class Student {
     void enlist(Section newSection) {
         requireNonNull(newSection, "section should not be null");
         sections.forEach(currSection -> currSection.checkForConflict(newSection));
+        sections.forEach(currSection -> currSection.checkForConflictSubject(newSection));
         newSection.checkSubjectPrerequisites(takenSubjects);
         newSection.addEnlistNumber();
         sections.add(newSection);
