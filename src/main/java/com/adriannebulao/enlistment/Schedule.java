@@ -3,12 +3,16 @@ package com.adriannebulao.enlistment;
 import static java.util.Objects.*;
 import java.time.LocalTime;
 import java.util.Objects;
+import java.time.format.DateTimeFormatter;
+
 
 class Schedule {
 
     private final Days days;
     private final LocalTime startTime;
     private final LocalTime endTime;
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("hh:mma");
+
 
     Schedule(Days days, LocalTime startTime, LocalTime endTime) {
         requireNonNull(days);
@@ -59,7 +63,7 @@ class Schedule {
 
     @Override
     public String toString() {
-        return days + ":" + startTime  + "-" + endTime;
+        return "Days: " +  days + " | " + startTime.format(TIME_FORMATTER)  + " - " + endTime.format(TIME_FORMATTER);
     }
 
 }
