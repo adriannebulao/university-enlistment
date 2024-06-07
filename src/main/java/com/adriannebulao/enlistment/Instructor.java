@@ -1,6 +1,5 @@
 package com.adriannebulao.enlistment;
 
-import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
@@ -17,10 +16,12 @@ class Instructor {
     }
 
     public void assignSection(Section section) {
+        requireNonNull(section, "section must not be null");
         sections.add(section);
     }
 
     public boolean hasScheduleConflict(Section newSection) {
+        requireNonNull(newSection, "newSection must not be null");
         for (Section section : sections) {
             if (!section.equals(newSection) && newSection.getSchedule().equals(section.getSchedule())) {
                 return true;

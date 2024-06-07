@@ -38,7 +38,6 @@ class Student {
         isTrue(sections.contains(newSection) , "section is not enlisted");
         sections.remove(newSection);
         newSection.removeEnlistNumber();
-
     }
 
     double requestAssessment() {
