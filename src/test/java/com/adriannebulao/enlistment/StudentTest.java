@@ -34,11 +34,11 @@ public class StudentTest {
     }
 
      static Schedule defaultSchedule1() {
-        return new Schedule(MTH, LocalTime.of(5, 0),  LocalTime.of(6, 30));
+        return new Schedule(MTH, LocalTime.of(8, 30),  LocalTime.of(10, 30));
     }
 
     static Schedule defaultSchedule2() {
-        return new Schedule (TF, LocalTime.of(9, 0),  LocalTime.of(11, 0));
+        return new Schedule (TF, LocalTime.of(11, 0),  LocalTime.of(12, 0));
     }
 
     static Section defaultSection1() {
