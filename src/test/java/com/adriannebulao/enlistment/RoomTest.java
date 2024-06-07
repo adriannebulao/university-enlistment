@@ -5,7 +5,6 @@ import static com.adriannebulao.enlistment.Days.*;
 import static com.adriannebulao.enlistment.Period.*;
 
 import java.util.Collections;
-import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -61,7 +60,7 @@ public class RoomTest {
         Section section1 = defaultSection1();
         Section section2 = new Section("SEC2", defaultSchedule1(), defaultSubject(), defaultRoom(), defaultInstructor());
 
-        assertThrows(RoomConflictException.class, () -> section1.checkRoomConflict(section2));
+        assertThrows(RoomConflictException.class, () -> section1.checkForConflictRoom(section2));
     }
 
     @Test
@@ -69,6 +68,6 @@ public class RoomTest {
         Section section1 = defaultSection1();
         Section section2 = defaultSection2();
 
-        assertDoesNotThrow(() -> section1.checkRoomConflict(section2));
+        assertDoesNotThrow(() -> section1.checkForConflictRoom(section2));
     }
 }
