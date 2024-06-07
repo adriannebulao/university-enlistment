@@ -34,7 +34,7 @@ public class StudentTest {
     }
 
      static Schedule defaultSchedule1() {
-        return new Schedule(MTH, LocalTime.of(8, 15),  LocalTime.of(9, 15));
+        return new Schedule(MTH, LocalTime.of(5, 0),  LocalTime.of(6, 30));
     }
 
     static Schedule defaultSchedule2() {

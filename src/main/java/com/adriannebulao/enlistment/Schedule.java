@@ -15,8 +15,6 @@ class Schedule {
         requireNonNull(startTime);
         requireNonNull(endTime);
 
-        System.out.println(startTime.getMinute());
-
         if(startTime.getMinute() != 30 && startTime.getMinute() != 0 && endTime.getMinute() != 30 && endTime.getMinute()!= 0){
             throw new IllegalArgumentException("invalid start and end time");
         }
@@ -27,8 +25,18 @@ class Schedule {
 
         if(endTime.getMinute() != 30 && endTime.getMinute()!= 0){
             throw new IllegalArgumentException("invalid end time");
+        };
 
-        }
+        //time  beyond 5:30 PM & time earlier than 8:30 AM
+        if(startTime.isAfter(LocalTime.of(17, 30)) || endTime.isAfter(LocalTime.of(17, 30))){
+            throw new IllegalArgumentException("time cannot go beyond 5:30 PM");
+        };
+
+        if(startTime.isBefore(LocalTime.of(8, 30)) || endTime.isBefore(LocalTime.of(8, 30))){
+            throw new IllegalArgumentException("time cannot go earlier than 8:30 AM");
+        };
+
+
 
         if(startTime.isAfter(endTime)){
             throw new IllegalArgumentException("bawal mas maaga ang after");
