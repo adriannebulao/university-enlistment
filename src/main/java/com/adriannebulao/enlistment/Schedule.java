@@ -39,7 +39,7 @@ class Schedule {
             throw new InvalidSchedulePeriodException("time cannot go earlier than 8:30 AM");
         };
 
-        if(startTime.isAfter(endTime)){
+        if(startTime.isAfter(endTime) || startTime.equals(endTime)){
             throw new InvalidEndPeriodException("endTime can not be on or before startTime");
         }
 

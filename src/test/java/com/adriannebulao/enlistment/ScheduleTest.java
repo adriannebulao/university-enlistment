@@ -11,33 +11,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class ScheduleTest {
-    static Schedule defaultSchedule() {
-        {
-            return new Schedule(MTH, LocalTime.of(9, 0),  LocalTime.of(10, 0));
-        }
+    @Test
+    void test_valid_period_30_minute_increment() {
+        assertDoesNotThrow(() -> new Schedule(MTH, LocalTime.of(9, 0), LocalTime.of(9, 30)));
     }
-
-    static Subject defaultSubject() {
-        return new Subject("Math", 3, Collections.emptySet(), false);
-    }
-
-    static Instructor defeaultInstructor() {
-        return new Instructor("I1");
-    }
-
-    static Room defaultRoom() {
-        return new Room("Room101", 30);
-    }
-
-    static Section defaultSection() {
-        return new Section("S101", defaultSchedule(), defaultSubject(), defaultRoom(), defeaultInstructor());
-    }
-
-
 
     @Test
-    void test_valid_period_duration_30_minutes() {
-        assertDoesNotThrow(() -> new Schedule(MTH, LocalTime.of(9, 0), LocalTime.of(9, 30)));
+    void test_invalid_period_30_minute_increment() {
+        assertThrows(NotThirtyIncrementException.class, () -> new Schedule(MTH, LocalTime.of(9, 0), LocalTime.of(9, 40)));
     }
 
     @Test
@@ -45,14 +26,18 @@ public class ScheduleTest {
         assertThrows(InvalidSchedulePeriodException.class, () -> new Schedule(MTH, LocalTime.of(17, 0), LocalTime.of(18, 0)));
     }
 
-
     @Test
     void test_invalid_period_start_time_before_range() {
         assertThrows(InvalidSchedulePeriodException.class, () -> new Schedule(MTH, LocalTime.of(7, 0), LocalTime.of(9, 30)));
     }
 
+    @Test
+    void test_end_time_before_start_time() {
+        assertThrows(InvalidEndPeriodException.class, () -> new Schedule(MTH, LocalTime.of(10, 0), LocalTime.of(9, 30)));
+    }
 
-
-
-
+    @Test
+    void test_end_time_on_start_time() {
+        assertThrows(InvalidEndPeriodException.class, () -> new Schedule(MTH, LocalTime.of(10, 0), LocalTime.of(10, 0)));
+    }
 }
