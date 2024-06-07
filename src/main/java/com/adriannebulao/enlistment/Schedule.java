@@ -1,17 +1,43 @@
 package com.adriannebulao.enlistment;
 
 import static java.util.Objects.*;
+import java.time.LocalTime;
+import java.util.Objects;
 
 class Schedule {
 
     private final Days days;
-    private final Period period;
+    private final LocalTime startTime;
+    private final LocalTime endTime;
 
-    Schedule(Days days, Period period) {
+    Schedule(Days days, LocalTime startTime, LocalTime endTime) {
         requireNonNull(days);
-        requireNonNull(period);
+        requireNonNull(startTime);
+        requireNonNull(endTime);
+
+        System.out.println(startTime.getMinute());
+
+        if(startTime.getMinute() != 30 && startTime.getMinute() != 0 && endTime.getMinute() != 30 && endTime.getMinute()!= 0){
+            throw new IllegalArgumentException("invalid start and end time");
+        }
+
+        if(startTime.getMinute() != 30 && startTime.getMinute() != 0){
+            throw new IllegalArgumentException("invalid start time");
+        };
+
+        if(endTime.getMinute() != 30 && endTime.getMinute()!= 0){
+            throw new IllegalArgumentException("invalid end time");
+
+        }
+
+        if(startTime.isAfter(endTime)){
+            throw new IllegalArgumentException("bawal mas maaga ang after");
+        }
+
+
         this.days = days;
-        this.period = period;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     @Override
@@ -19,23 +45,21 @@ class Schedule {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Schedule schedule = (Schedule) o;
-        return days == schedule.days && period == schedule.period;
+        return days == schedule.days && Objects.equals(startTime, schedule.startTime) && Objects.equals(endTime, schedule.endTime);
     }
 
     @Override
     public int hashCode() {
-        return hash(days, period);
+        return hash(days, startTime, endTime);
     }
 
     @Override
     public String toString() {
-        return days + ":" + period;
+        return days + ":" + startTime  + "-" + endTime;
     }
 
 }
 
 enum Days { MTH, TF, WS }
 
-enum Period {
-    H0830, H1000, H1130, H1420, H1600
-}
+

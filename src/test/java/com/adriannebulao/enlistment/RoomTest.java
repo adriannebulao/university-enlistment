@@ -2,8 +2,8 @@ package com.adriannebulao.enlistment;
 
 import org.junit.jupiter.api.Test;
 import static com.adriannebulao.enlistment.Days.*;
-import static com.adriannebulao.enlistment.Period.*;
 
+import java.time.LocalTime;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,11 +15,11 @@ public class RoomTest {
     }
 
     static Schedule defaultSchedule1() {
-        return new Schedule(MTH, H0830);
+        return new Schedule(MTH, LocalTime.of(9, 0),  LocalTime.of(9, 0));
     }
 
     static Schedule defaultSchedule2() {
-        return new Schedule(TF, H1000);
+        return new Schedule(TF, LocalTime.of(9, 0),  LocalTime.of(9, 0));
     }
 
     static Subject defaultSubject() {
