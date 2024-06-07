@@ -77,8 +77,5 @@ public class RoomTest {
         assertDoesNotThrow(() -> section1.checkForConflictRoom(section2));
     }
 
-    @Test
-    void test_room_conflict_with_different_subjects() {
 
-    }
 }
