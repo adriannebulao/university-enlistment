@@ -45,6 +45,12 @@ public class RoomTest {
     }
 
     @Test
+    void room_has_invalid_alphanumeric_name() {
+        assertThrows(IllegalArgumentException.class, () -> new Room("%!@#", 20));
+    }
+
+
+    @Test
     void room_has_capacity() {
         Room room = defaultRoom();
         assertEquals(30, room.getRoomCapacity());
@@ -69,5 +75,10 @@ public class RoomTest {
         Section section2 = defaultSection2();
 
         assertDoesNotThrow(() -> section1.checkForConflictRoom(section2));
+    }
+
+    @Test
+    void test_room_conflict_with_different_subjects() {
+
     }
 }
