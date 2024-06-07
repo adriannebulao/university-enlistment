@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalTime;
 import java.util.*;
 
 import static com.adriannebulao.enlistment.Days.*;
-import static com.adriannebulao.enlistment.Period.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentTest {
@@ -34,11 +34,11 @@ public class StudentTest {
     }
 
      static Schedule defaultSchedule1() {
-        return new Schedule(MTH, H0830);
+        return new Schedule(MTH, LocalTime.of(5, 0),  LocalTime.of(6, 30));
     }
 
     static Schedule defaultSchedule2() {
-        return new Schedule(TF, H1000);
+        return new Schedule (TF, LocalTime.of(9, 0),  LocalTime.of(11, 0));
     }
 
     static Section defaultSection1() {

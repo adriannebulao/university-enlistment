@@ -2,11 +2,11 @@ package com.adriannebulao.enlistment;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.HashSet;
 
 import static com.adriannebulao.enlistment.Days.*;
-import static com.adriannebulao.enlistment.Period.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InstructorTest {
@@ -16,11 +16,11 @@ public class InstructorTest {
     }
 
     static Schedule defaultSchedule1() {
-        return new Schedule(MTH, H0830);
+        return new Schedule(MTH, LocalTime.of(9, 0),  LocalTime.of(11, 0));
     }
 
     static Schedule defaultSchedule2() {
-       return new Schedule(MTH, H1130);
+       return new Schedule(MTH, LocalTime.of(9, 0),  LocalTime.of(11, 0));
     }
 
     static Subject defaultSubject1() {

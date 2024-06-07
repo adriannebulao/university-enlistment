@@ -1,14 +1,19 @@
 package com.adriannebulao.enlistment;
 
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalTime;
 import java.util.Collections;
+
+import static com.adriannebulao.enlistment.Days.MTH;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SectionTest {
 
     static Schedule defaultSchedule() {
-        return new Schedule(Days.MTH, Period.H0830);
-    }
+        {
+            return new Schedule(MTH, LocalTime.of(9, 0),  LocalTime.of(9, 0));
+        }    }
 
     static Subject defaultSubject() {
         return new Subject("Math", 3, Collections.emptySet(), false);
