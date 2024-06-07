@@ -58,7 +58,7 @@ class Section {
 
     void checkForConflictSchedule(Section other) {
         requireNonNull(other);
-        if (this.schedule.equals(other.schedule)) {
+        if (schedule.isOverlapping(other.schedule)) {
             throw new ScheduleConflictException("this section " + this + " has schedule conflict with section " + other + " at schedule " + schedule);
         }
     }

@@ -74,7 +74,7 @@ public class StudentTest {
     }
 
     @Test
-    void enlist_2_sections_with_schedule_conflict() {
+    void enlist_2_sections_with_same_schedule() {
         // Given: A Student with no sections and 2 sections with the same schedule
         Student student = defaultStudent();
         Subject subj2 = defaultSubject2();
@@ -85,6 +85,18 @@ public class StudentTest {
         student.enlist(sec1);
 
         // Then: On enlisting in the second question, throw exception
+        assertThrows(ScheduleConflictException.class, () -> student.enlist(sec2));
+    }
+
+    @Test
+    void enlist_2_sections_with_schedule_conflict() {
+        Student student = defaultStudent();
+        Section sec1 = defaultSection1();
+        Section sec2 = new Section("B", new Schedule(MTH, LocalTime.of(9, 00),
+                LocalTime.of(10, 00)), defaultSubject2(), defaultRoom(), defaultInstructor());
+
+        student.enlist(sec1);
+
         assertThrows(ScheduleConflictException.class, () -> student.enlist(sec2));
     }
 
