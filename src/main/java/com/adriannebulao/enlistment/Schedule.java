@@ -27,7 +27,6 @@ class Schedule {
             throw new NotThirtyIncrementException("invalid end time");
         };
 
-        //time  beyond 5:30 PM & time earlier than 8:30 AM
         if(startTime.isAfter(LocalTime.of(17, 30)) || endTime.isAfter(LocalTime.of(17, 30))){
             throw new InvalidSchedulePeriodException("time cannot go beyond 5:30 PM");
         };
@@ -37,9 +36,8 @@ class Schedule {
         };
 
         if(startTime.isAfter(endTime)){
-            throw new InvalidEndPeriodException("bawal mas maaga ang after");
+            throw new InvalidEndPeriodException("endTime can not be on or before startTime");
         }
-
 
         this.days = days;
         this.startTime = startTime;

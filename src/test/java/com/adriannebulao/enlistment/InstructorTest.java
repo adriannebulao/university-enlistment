@@ -20,7 +20,7 @@ public class InstructorTest {
     }
 
     static Schedule defaultSchedule2() {
-       return new Schedule(MTH, LocalTime.of(9, 0),  LocalTime.of(11, 0));
+       return new Schedule(MTH, LocalTime.of(13, 0),  LocalTime.of(15, 30));
     }
 
     static Subject defaultSubject1() {
