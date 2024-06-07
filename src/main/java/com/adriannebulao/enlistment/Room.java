@@ -12,7 +12,6 @@ class Room {
     public Room(String roomName, int roomCapacity) {
         isTrue(isAlphanumeric(roomName), "room name must be alphanumeric, was: " + roomName);
         this.roomName = roomName;
-
         isTrue(roomCapacity >= 0, "studentNumber should be non-negative, was: " + roomCapacity);
         this.roomCapacity = roomCapacity;
     }
