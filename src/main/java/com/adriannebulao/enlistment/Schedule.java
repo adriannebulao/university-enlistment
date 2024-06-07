@@ -44,6 +44,14 @@ class Schedule {
         this.endTime = endTime;
     }
 
+    boolean isOverlapping(Schedule other) {
+        requireNonNull(other, "other section must not be null");
+        return ((other.startTime.isAfter(startTime) || other.startTime.equals(startTime))
+                && (other.startTime.isBefore(endTime) || other.startTime.equals(endTime)))
+                || ((other.endTime.isAfter(startTime) || other.endTime.equals(startTime))
+                && (other.endTime.isBefore(endTime) || other.endTime.equals(endTime)));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
